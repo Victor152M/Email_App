@@ -7,19 +7,27 @@ public class Email {
     private String email;
     private String department;
     private String alternateEmail;
-    private int mail_capacity;
+    private int passwordLength =  10;
+    private int mail_capacity = 500;
+    private String company="bluematrix.com";
 
-Email(String F_name,String L_name) {
+ Email(String F_name,String L_name) {
     this.firstName=F_name;
     this.lastName=L_name;
-    System.out.println("EMAIL CREATED: "+this.firstName+"."+this.lastName+"@"+setDepartment());
+    this.department=setDepartment();
+    this.password=randomPassword(passwordLength);
+    System.out.println("Your password is: "+this.password);
+    email=firstName.toLowerCase()+"."+lastName.toLowerCase()+"@"+department+"."+company;
+    System.out.println("Your email: "+email);
 }
 private String randomPassword(int length){
     String passwordSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
-    char[] password = new char[length]
+    char[] password = new char[length];
             for(int i=0;i<length;i++){
-                (int) Math.random() * passwordSet
+                int randomInt=(int) (Math.random() * passwordSet.length());
+                password[i]= passwordSet.charAt(randomInt);
             }
+            return new String(password);
 }
 
 
@@ -42,6 +50,11 @@ private String randomPassword(int length){
 
     }
 
+    public String showInfo(){
+     return "NAME: "+firstName+" "+lastName+
+             "\nCOMPANY EMAIL: "+email+
+             "\nMAILBOX CAPACITY: "+mail_capacity + "Mb";
+    }
 
 
     //setter methods
@@ -53,6 +66,9 @@ private String randomPassword(int length){
         this.mail_capacity = mail_capacity;
     }
 
+    public void setAlternateEmail(String alternateEmail) {
+        this.alternateEmail = alternateEmail;
+    }
     //getter methods
     public String getFirstName() {
         return firstName;
@@ -64,6 +80,10 @@ private String randomPassword(int length){
 
     public String getEmail() {
         return email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public int getMail_capacity() {
